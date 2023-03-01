@@ -7,4 +7,4 @@ COPY ./pytest.py .
 RUN mkdir logging
 ENV ip=localhost
 ENV port=80
-ENTRYPOINT cat test.log >> logging/test.log | python3 pytest.py ${ip} ${port}
+ENTRYPOINT  python3 pytest.py ${ip} ${port} && cat test.log >> logging/test.log 

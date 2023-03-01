@@ -23,7 +23,6 @@ if __name__ == "__main__":
     try:
         test_receive_string(ip_address, port)
         logging.info(f"{datetime.datetime.now()}: Test passed for {ip_address}:{port}")
-        print("yes")
     except AssertionError as e:
         logging.warning(f"{datetime.datetime.now()}: Test failed for {ip_address}:{port} ; ERRO: {e}")
-        print("no")
+        
