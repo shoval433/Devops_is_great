@@ -54,6 +54,7 @@ environment{
             steps{
                 echo "========executing TAG========"
                  script{
+                    sh "git fetch --tags"
                     dir('script'){
                         TAG=sh (script: "bash calc.sh",
                         returnStdout: true).trim()
