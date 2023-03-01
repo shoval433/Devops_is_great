@@ -59,6 +59,7 @@ environment{
                     echo "${TAG}"
                     tag_befor=sh (script: 'echo $all_tag |rev| cut -d " " -f2 | rev',
                     returnStdout: true).trim()
+                    // #test
                     if(tag_befor==TAG || tag_befor ==""){
                         echo "ho"
                     }
