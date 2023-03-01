@@ -4,7 +4,6 @@ WORKDIR /test
 COPY ./req.txt .
 RUN pip install -r req.txt
 COPY ./pytest.py .
-RUN mkdir logging
 ENV ip=localhost
 ENV port=80
-ENTRYPOINT  python3 pytest.py ${ip} ${port} && cat test.log >> logging/log.txt
+ENTRYPOINT  python3 pytest.py ${ip} ${port} 

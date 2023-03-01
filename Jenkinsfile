@@ -58,7 +58,7 @@ pipeline{
     post{
         always{
             script{
-                // sh "docker rm -f test"
+                sh "docker rm -f test"
                 sh "docker-compose down -v"
             }
         }
