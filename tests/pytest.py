@@ -3,6 +3,7 @@ import sys
 import requests
 import logging
 import datetime
+import pytest
 
 def test_receive_string(ip_address, port, string="Devops is great"):
     url = f"http://{ip_address}:{port}/"

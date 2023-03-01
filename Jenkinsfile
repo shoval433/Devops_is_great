@@ -19,7 +19,7 @@ pipeline{
             steps{
                 echo "========executing chekout========"
                 script{
-                    sh "docker-compose build "
+                    sh "docker-compose build --no-cache"
                     sh "docker-compose up -d"
                 }
             }
