@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import sys
 import requests
-import logging
 import datetime
 import pytest
 
@@ -16,13 +15,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python3 pytest.py <ip_address> <port>")
         sys.exit(1)
-
     ip_address = sys.argv[1]
     port = int(sys.argv[2])
-    logging.basicConfig(filename="test.log", level=logging.INFO)
-    try:
-        test_receive_string(ip_address, port)
-        logging.info(f"{datetime.datetime.now()}: Test passed for {ip_address}:{port}")
-    except AssertionError as e:
-        logging.warning(f"{datetime.datetime.now()}: Test failed for {ip_address}:{port} ; ERRO: {e}")
+    test_receive_string(ip_address, port)
         
