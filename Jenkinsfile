@@ -76,6 +76,7 @@ environment{
                             }
                         }
                         else{
+                            echo "have before" 
                             // #push tag
                             dir('script'){
                                 sh "./tag_check.sh $TAG"
