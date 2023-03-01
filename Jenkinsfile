@@ -62,10 +62,14 @@ environment{
                     // #test
                     if(tag_befor==TAG || tag_befor ==""){
                         if(tag_befor==TAG){
-                            echo "same"
+                            echo "same tag"
                         }
                         else if(tag_befor ==""){
-                           echo "ho" 
+                           echo "first tag" 
+                        }
+                        else{
+                            sh "./tag_check.sh $TAG"
+                            
                         }
                         
                     }
