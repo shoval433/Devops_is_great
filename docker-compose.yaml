@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    build: ./
+    ports:
+      - "80:5000"
+#     volumes:
+#       - logs_app:/app/log/app.logs
+
+# volumes:
+#   logs_app:
+    
