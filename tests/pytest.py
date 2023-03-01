@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     ip_address = sys.argv[1]
     port = int(sys.argv[2])
-    logging.basicConfig(filename="logging/test.log", level=logging.INFO)
+    logging.basicConfig(filename="test.log", level=logging.INFO)
     try:
         test_receive_string(ip_address, port)
         logging.info(f"{datetime.datetime.now()}: Test passed for {ip_address}:{port}")
