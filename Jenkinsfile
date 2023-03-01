@@ -68,7 +68,7 @@ environment{
                         }
                         else if(tag_befor ==""){
                            echo "first tag" 
-                        //    sh "echo $(git tag) |rev| cut -d " " -f2 | rev"
+                        //    work
                            sh "git tag"
                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
                             sh "git tag $TAG"
