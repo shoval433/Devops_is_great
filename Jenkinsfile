@@ -45,9 +45,9 @@ pipeline{
             }
         }
 
-        stage("chekout"){
+        stage("Tag"){
             steps{
-                echo "========executing chekout========"
+                echo "========executing TAG========"
                 deleteDir()
                 checkout scm
             }
