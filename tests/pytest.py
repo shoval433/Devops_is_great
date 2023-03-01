@@ -22,7 +22,9 @@ if __name__ == "__main__":
     logging.basicConfig(filename="test.log", level=logging.INFO)
     try:
         test_receive_string(ip_address, port)
+        #send log on success
         logging.info(f"{datetime.datetime.now()}: Test passed for {ip_address}:{port}")
     except AssertionError as e:
+    #send log on erro
         logging.warning(f"{datetime.datetime.now()}: Test failed for {ip_address}:{port} ; ERRO: {e}")
         
