@@ -37,7 +37,7 @@ pipeline{
                         echo "------------------------------------------"
                         sh "mkdir logging"
                         sh "docker build -t test-img ."
-                        sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network app_lab_for_app -v ~/logging/:/test/logging -d test-img "
+                        sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network app_lab_for_app -v ~/logging/:/test/logging test-img "
                         // sh "cat logging/test.log"
                     }
                 }
