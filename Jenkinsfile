@@ -14,7 +14,7 @@ pipeline{
             steps{
                 echo "========executing chekout========"
                 script{
-                    sh "docker-compose bulid "
+                    sh "docker-compose build "
                     sh "docker-compose run -d"
                 }
             }
