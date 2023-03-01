@@ -3,7 +3,7 @@ pipeline{
     agent any
  environment{
        def IP="app_lab_app_1"
-       def PORT=80
+       def PORT="80"
       
 
    }
@@ -49,7 +49,7 @@ pipeline{
         always{
             script{
                 sh "docker rm -f tests"
-                sh "docker-compose down "
+                sh "docker-compose down -v"
             }
         }
         success{
