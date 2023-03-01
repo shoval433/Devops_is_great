@@ -57,7 +57,7 @@ environment{
                     TAG=sh (script: "bash calc.sh",
                     returnStdout: true).trim()
                     echo "${TAG}"
-                    tag_befor=sh (script: "echo $all_tag |rev| cut -d " " -f2 | rev",
+                    tag_befor=sh (script: 'echo $all_tag |rev| cut -d " " -f2 | rev',
                     returnStdout: true).trim()
                     if(tag_befor==TAG || tag_befor ==""){
                         echo "ho"
