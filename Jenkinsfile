@@ -31,6 +31,10 @@ pipeline{
                     app_ip=sh(returnStdout: true, 
                     script: 'docker inspect app_lab_app_1 | grep -w "IPAddress" | cut -d \'"\' -f 4 ').trim()
                     dir('tests'){
+                        sh "docker ps"
+                        echo "------------------------------------------"
+                        sh "docker network ls"
+                        echo "------------------------------------------"
                         sh "mkdir logging"
                         sh "docker build -t test-img ."
                         sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network aurora_labs_devops_main_default -v ~/logging/:/test/logging -d test-img "
@@ -38,6 +42,14 @@ pipeline{
                     }
                 }
 
+            }
+        }
+
+        stage("chekout"){
+            steps{
+                echo "========executing chekout========"
+                deleteDir()
+                checkout scm
             }
         }
 
