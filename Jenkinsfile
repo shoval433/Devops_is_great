@@ -33,7 +33,7 @@ pipeline{
                     dir('tests'){
                         sh "mkdir logging"
                         sh "docker build -t test-img ."
-                        sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network for_app -v ./logging/:/test/logs -d test-img "
+                        sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network aurora_labs_devops_main_default -v ~/logging/:/test/logging -d test-img "
                         sh "cat logging/test.log"
                     }
                 }
@@ -48,7 +48,8 @@ pipeline{
     post{
         always{
             script{
-                 sh "docker-compose down "
+                sh "docker rm -f tests"
+                sh "docker-compose down "
             }
         }
         success{
