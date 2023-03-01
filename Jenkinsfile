@@ -75,19 +75,20 @@ environment{
                             sh "git push origin $TAG"
                             }
                         }
-                        else{
-                            echo "have before" 
-                            // #push tag
-                            dir('script'){
-                                sh "./tag_check.sh $TAG"
-                            }
-                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
-                            sh "git tag $TAG"
-                            sh "git push origin $TAG"
-                            }
-                        }
-                        
                     }
+                    else{
+                        echo "have before" 
+                        // #push tag
+                        dir('script'){
+                            sh "./tag_check.sh $TAG"
+                        }
+                        withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
+                        sh "git tag $TAG"
+                        sh "git push origin $TAG"
+                        }
+                    }
+                        
+                    
                     
                 }     
                 
