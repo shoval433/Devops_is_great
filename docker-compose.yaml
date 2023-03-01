@@ -9,4 +9,5 @@ services:
 
 # volumes:
 #   logs_app:
-    
+networks:
+  for_app:
