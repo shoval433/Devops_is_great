@@ -65,9 +65,6 @@ environment{
                     if(tag_befor==TAG || tag_befor ==""){
                         if(tag_befor==TAG){
                             echo "same tag"
-                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
-                            sh "git tag $TAG"
-                            sh "git push origin $TAG"
                         }
                         }
                         else if(tag_befor ==""){
