@@ -68,6 +68,8 @@ environment{
                         }
                         else if(tag_befor ==""){
                            echo "first tag" 
+                           sh "echo $all_tag |rev| cut -d " " -f2 | rev"
+                           sh "echo $all_tag"
                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
                             sh "git tag $TAG"
                             sh "git push origin $TAG"
