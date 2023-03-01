@@ -48,8 +48,8 @@ pipeline{
         stage("Tag"){
             steps{
                 echo "========executing TAG========"
-                deleteDir()
-                checkout scm
+                // deleteDir()
+                // checkout scm
             }
         }
 
