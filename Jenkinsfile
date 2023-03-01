@@ -37,7 +37,7 @@ pipeline{
                         echo "------------------------------------------"
                         sh "mkdir logging"
                         sh "docker build -t test-img . --no-cache"
-                        sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network app_lab_for_app -v ~/workspace/app_lab/tests/logging:/test/logging test-img"
+                        sh "docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app -v ~/workspace/app_lab/tests/logging:/test/logging test-img"
                         sh "cat logging/log.txt"
                     }
                 }
@@ -60,7 +60,7 @@ pipeline{
     post{
         always{
             script{
-                sh "docker rm -f tests"
+                // sh "docker rm -f test"
                 sh "docker-compose down -v"
             }
         }
