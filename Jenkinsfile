@@ -59,7 +59,7 @@ environment{
                         returnStdout: true).trim()
                     }
                     echo "${TAG}"
-                    tag_befor=sh (script: 'echo $all_tag |rev| cut -d " " -f2 | rev',
+                    tag_befor=sh (script: 'echo $(git tag) |rev| cut -d " " -f2 | rev',
                     returnStdout: true).trim()
                     // #test
                     if(tag_befor==TAG || tag_befor ==""){
@@ -68,8 +68,8 @@ environment{
                         }
                         else if(tag_befor ==""){
                            echo "first tag" 
-                           sh "echo $all_tag |rev| cut -d " " -f2 | rev"
-                           sh "echo $all_tag"
+                           sh "echo $(git tag) |rev| cut -d " " -f2 | rev"
+                           sh "git tag"
                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
                             sh "git tag $TAG"
                             sh "git push origin $TAG"
