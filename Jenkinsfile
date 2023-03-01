@@ -3,7 +3,7 @@ pipeline{
     agent any
  environment{
        def IP="app_lab_app_1"
-       def PORT="80"
+       def PORT="5000"
       
 
    }
@@ -38,7 +38,7 @@ pipeline{
                         sh "mkdir logging"
                         sh "docker build -t test-img ."
                         sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network app_lab_for_app -v ~/logging/:/test/logging test-img "
-                        // sh "cat logging/test.log"
+                        sh "cat logging/test.log"
                     }
                 }
 
