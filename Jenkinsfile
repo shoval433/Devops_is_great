@@ -63,14 +63,26 @@ environment{
                     if(tag_befor==TAG || tag_befor ==""){
                         if(tag_befor==TAG){
                             echo "same tag"
+                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
+                            sh "git tag $TAG"
+                            sh "git push origin $TAG"
+                        }
                         }
                         else if(tag_befor ==""){
                            echo "first tag" 
+                           withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
+                            sh "git tag $TAG"
+                            sh "git push origin $TAG"
+                        }
                         }
                         else{
                             // #push tag
                             sh "./tag_check.sh $TAG"
-                            
+
+                            withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
+                            sh "git tag $TAG"
+                            sh "git push origin $TAG"
+                        }
                         }
                         
                     }
