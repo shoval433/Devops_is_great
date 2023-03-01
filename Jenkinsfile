@@ -68,6 +68,7 @@ environment{
                            echo "first tag" 
                         }
                         else{
+                            // #push tag
                             sh "./tag_check.sh $TAG"
                             
                         }
