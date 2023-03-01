@@ -32,7 +32,7 @@ pipeline{
                     script: 'docker inspect app_lab_app_1 | grep -w "IPAddress" | cut -d \'"\' -f 4 ').trim()
                     dir('tests'){
                         sh "mkdir logging"
-                        sh "docker bulid -t test-img ."
+                        sh "docker build -t test-img ."
                         sh "docker run --name tests -e ip=${IP} -e port=${PORT} --network for_app -v ./logging:/test/logs -d "
                         sh "cat logging/test.log"
                     }
