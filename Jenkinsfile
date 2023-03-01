@@ -61,7 +61,13 @@ environment{
                     returnStdout: true).trim()
                     // #test
                     if(tag_befor==TAG || tag_befor ==""){
-                        echo "ho"
+                        if(tag_befor==TAG){
+                            echo "same"
+                        }
+                        else if(tag_befor ==""){
+                           echo "ho" 
+                        }
+                        
                     }
                     
                 }     
