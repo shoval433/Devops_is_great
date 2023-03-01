@@ -1,11 +1,11 @@
 pipeline{
 
     agent any
- environment{
-       def IP="app_lab_app_1"
-       def PORT="5000"
-      
-
+environment{
+    def IP="app_lab_app_1"
+    def PORT="5000"
+    def TAGcommit=""
+    def TAG=""
    }
     stages{
         stage("chekout"){
@@ -38,16 +38,28 @@ pipeline{
                         sh "docker build -t test-img . --no-cache"
                         sh "docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app test-img"
                     }
+                    TAGcommit=sh (script: "git show -s --format=%s",
+                    returnStdout: true).trim()
                 }
 
             }
         }
 
         stage("Tag"){
+            when {
+                expression{
+                    return TAGcommit.contains("#tag")
+                }
+            }
             steps{
                 echo "========executing TAG========"
-                // deleteDir()
-                // checkout scm
+                 script{
+                    TAG=sh (script: "bash calc.sh",
+                    returnStdout: true).trim()
+                    echo "${TAG}"
+
+                }     
+                
             }
         }
 
