@@ -175,14 +175,11 @@ environment{
         // GIT_COMMITTER_EMAIL
         success{
             script{
-                emailext   to: "${EMAIL}",
-                    subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
-                    attachLog: true
-            }
+               emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [developers()], subject: 'Congratulations!'
         }
         failure {
            script{
-                emailext   to: "${EMAIL}",
+                emailext to: "${EMAIL}",
                     subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
                     attachLog: true
             }
