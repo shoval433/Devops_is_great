@@ -85,7 +85,7 @@ environment{
                             }
                         }
                     }
-                    else {
+                    else if(last_of_all==first_of_commit) {
                         echo "have before" 
                         // #push tag
                         dir('script'){
@@ -95,6 +95,9 @@ environment{
                         sh "git tag $TAG"
                         sh "git push origin $TAG"
                         }
+                    }
+                    else{
+                        echo "Have To Tag On Commit!"
                     }
                         
                     
