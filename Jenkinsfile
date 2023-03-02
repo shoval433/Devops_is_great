@@ -174,15 +174,18 @@ environment{
         }
         // GIT_COMMITTER_EMAIL
         success{
-            emailext   to: "${EMAIL}",
-                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
-                attachLog: true
+            script{
+                emailext   to: "${EMAIL}",
+                    subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+                    attachLog: true
+            }
         }
         failure {
-            emailext   to: "${EMAIL}" ,
-                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
-                attachLog: true
-            
+           script{
+                emailext   to: "${EMAIL}",
+                    subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+                    attachLog: true
+            }
         }
     }
 }
