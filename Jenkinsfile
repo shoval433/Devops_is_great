@@ -120,7 +120,7 @@ environment{
                     }
                         
                     }
-                   echo GIT_COMMITTER_EMAIL %GIT_COMMITTER_EMAIL%
+                    sh "echo $GIT_COMMITTER_EMAIL"
                 }
             }
             post{
