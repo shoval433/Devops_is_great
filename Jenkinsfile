@@ -150,10 +150,13 @@ environment{
                 success{
                     echo "====++++only when successful++++===="
                     echo "The tag is good"
+                    emailext attachmentsPattern: 'last_of_all', body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
+                    to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
                 }
                 failure{
                     echo "====++++only when failed++++===="
                     sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
+                    
                 }
             }
         }
@@ -172,13 +175,10 @@ environment{
         success{
             script{
                emailext attachLog: true, body: 'Well, this time you didnt mess up', to: EMAIL, subject: NAME+' Congratulations!'
-            //    emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [developers()], subject: NAME+' Congratulations!'
             }
         }
         failure {
             script{
-            //    emailext attachLog: true, body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
-            //     recipientProviders: [developers()], subject: NAME+' YOU ARE BETTER THEN THAT !!!'
                 emailext attachLog: true, body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
                 to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
             }
