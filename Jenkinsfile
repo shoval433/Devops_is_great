@@ -91,7 +91,6 @@ environment{
                     }
                     else if(last_tag_has!=last_has) {
                         echo "new tag on commit" 
-                        if()
                         dir('script'){
                             sh "./tag_check.sh $TAG"
                         }
