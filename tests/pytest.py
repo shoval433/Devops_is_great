@@ -5,6 +5,7 @@ import datetime
 import pytest
 
 def test_receive_string(ip_address, port, string="Devops is great"):
+    # Checks if the string and the request are good
     url = f"http://{ip_address}:{port}/"
     expected_string = string
     response = requests.get(url)

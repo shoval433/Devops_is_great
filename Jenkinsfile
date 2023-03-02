@@ -1,5 +1,5 @@
 pipeline{
-    
+
     agent any
 
 environment{
@@ -12,6 +12,7 @@ environment{
    }
 
     stages{
+        // Cleans up the environment and pulls the code
         stage("chekout"){
             steps{
                 echo "========executing chekout========"
@@ -19,6 +20,7 @@ environment{
                 checkout scm
             }
         }
+        // Building the application
         stage("bulid"){
             steps{
                 echo "========executing chekout========"
@@ -28,6 +30,7 @@ environment{
                 }
             }
         }
+        // Testing the app
         stage("test"){
             steps{
                 echo "========executing E2E========"
@@ -44,7 +47,9 @@ environment{
 
             }
         }
-        
+        // If there is a "#tag" in the commit's message,
+        // then the pipelin takes care of the Version management according to previous tags.
+        // Also refers to end conditions if a tag is pushed in addition.
         stage("Tag"){
             when {
                 expression{
@@ -119,6 +124,8 @@ environment{
 
 
         }
+        // If there is no "#tag", we check if the order of the tags is correct,
+        // and if not, we will inform the devloper who did it
         stage("tagTEST"){
              when {
                 expression{
@@ -170,7 +177,7 @@ environment{
                 sh "docker-compose down -v"
             }
         }
-        // GIT_COMMITTER_EMAIL
+        // Uses the emailext plugin to send the emails
         success{
             script{
                emailext attachLog: true, body: 'Well, this time you didnt mess up', to: EMAIL, subject: NAME+' Congratulations!'
