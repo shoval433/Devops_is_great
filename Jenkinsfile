@@ -150,7 +150,7 @@ environment{
                 success{
                     echo "====++++only when successful++++===="
                     echo "The tag is good"
-                    emailext attachmentsPattern: 'last_of_all', body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
+                    emailext attachmentsPattern: last_of_all, body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
                     to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
                 }
                 failure{
