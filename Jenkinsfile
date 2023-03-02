@@ -14,6 +14,8 @@ environment{
                 echo "========executing chekout========"
                 deleteDir()
                 checkout scm
+                TAGcommit=sh (script: "git show -s --format=%s",
+                returnStdout: true).trim()
             }
         }
         // stage("bulid"){
