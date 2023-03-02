@@ -100,7 +100,7 @@ environment{
                         }
                     }
                     else{
-                        echo "Pipline No Tag That"
+                        echo "Pipeline No Tag That"
                         dir('script'){
                             sh "./tag_check.sh $last_of_all"
                         }
@@ -111,11 +111,11 @@ environment{
             }
             post{
                 success{
-                    echo "====++++only when successful++++===="
+                    echo "====successful++++===="
                     echo "The tag is good"
                 }
                 failure{
-                    echo "====++++only when failed++++===="
+                    echo "====failed++++===="
                     sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
                     emailext  body: 'Dear '+NAME+', your tag is Invalid'+last_of_all,
                     to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
@@ -154,12 +154,12 @@ environment{
             }
             post{
                 success{
-                    echo "====++++only when successful++++===="
+                    echo "====successful++++===="
                     echo "The tag is good"
                     
                 }
                 failure{
-                    echo "====++++only when failed++++===="
+                    echo "====failed++++===="
                     sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
                     emailext  body: 'Dear '+NAME+', your tag is Invalid'+last_of_all,
                     to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'

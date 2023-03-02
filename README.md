@@ -4,7 +4,7 @@
 ## App
 This project prints "Devops is great" to adapt to the environment you are running in (in this example we are talking about localhost)
 
-## Pipline
+## Pipeline
 Inside the repository you can find the jenkinsfile that follows the project's continuous integration process
 
 
