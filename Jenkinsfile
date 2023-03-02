@@ -62,6 +62,14 @@ environment{
                     echo "${TAG}"
                     tag_befor=sh (script: 'echo $(git tag) |rev| cut -d " " -f2 | rev',
                     returnStdout: true).trim()
+                    // #on tag commit
+                    echo "=============test_commit================"
+                    last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
+                    returnStdout: true).trim()
+                    first_of_commit=sh (script: 'git describe --tags',
+                    returnStdout: true).trim()
+                    echo "${last_of_all}"
+                    echo "${first_of_commit}"
                     // #test
                     if(tag_befor==TAG || tag_befor ==""){
                         if(tag_befor==TAG){
@@ -77,7 +85,7 @@ environment{
                             }
                         }
                     }
-                    else{
+                    else if (){
                         echo "have before" 
                         // #push tag
                         dir('script'){
@@ -104,7 +112,13 @@ environment{
                     sh 'git tag'
                     echo '=========================================================='
                     sh "git describe --tags"
-
+                    echo "=============test_commit================"
+                    last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
+                    returnStdout: true).trim()
+                    first_of_commit=sh (script: 'git describe --tags',
+                    returnStdout: true).trim()
+                    echo "${last_of_all}"
+                    echo "${first_of_commit}"
 
                 }
             }
