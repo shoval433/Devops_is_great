@@ -120,7 +120,8 @@ environment{
                     }
                         
                     }
-                    sh "echo $GIT_COMMITTER_EMAIL"
+                    println System.getenv("GIT_COMMITTER_EMAIL")
+                    sh "echo env.GIT_COMMITTER_EMAIL"
                 }
             }
             post{
