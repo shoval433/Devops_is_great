@@ -21,7 +21,7 @@ environment{
             steps{
                 echo "========executing chekout========"
                 script{
-                    sh "docker-compose build --no-cache"
+                    sh "docker-compose build "
                     sh "docker-compose up -d"
                 }
             }
@@ -37,7 +37,7 @@ environment{
                         echo "------------------------------------------"
                         sh "docker network ls"
                         echo "------------------------------------------"
-                        sh "docker build -t test-img . --no-cache"
+                        sh "docker build -t test-img . "
                         sh "docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app test-img"
                     }
                     TAGcommit=sh (script: "git show -s --format=%s",
@@ -157,7 +157,7 @@ environment{
                 }
                 failure{
                     echo "====++++only when failed++++===="
-                   sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
+                    sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
                 }
             }
         }
@@ -174,13 +174,13 @@ environment{
         }
         // GIT_COMMITTER_EMAIL
         success{
-            emailext   to: 'shoval123055@gmail.com',
-                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+            emailext   to: env.EMAIL,
+                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
                 attachLog: true
         }
         failure {
-            emailext   to: 'shoval123055@gmail.com',
-                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+            emailext   to: env.EMAIL ,
+                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
                 attachLog: true
             
         }
