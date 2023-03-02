@@ -60,34 +60,38 @@ environment{
                         returnStdout: true).trim()
                     }
                     echo "${TAG}"
-                    tag_befor=sh (script: 'echo $(git tag) |rev| cut -d " " -f2 | rev',
-                    returnStdout: true).trim()
                     // #on tag commit
                     echo "=============test_commit================"
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
+                    
                     first_of_commit=sh (script: 'git describe --tags | cut -d "-" -f1',
                     returnStdout: true).trim()
+
+                    // git rev-parse --short HEAD
+                    // git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d " " -f2
+
+                    last_has=sh (script: 'git rev-parse --short HEAD',
+                    returnStdout: true).trim()
+                    
+                    last_tag_has=sh (script: 'git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d " " -f2',
+                    returnStdout: true).trim()
+
                     echo "${last_of_all}"
                     echo "${first_of_commit}"
-                    // #test
-                    if(tag_befor==TAG || tag_befor ==""){
-                        if(tag_befor==TAG){
-                            echo "same tag"
+                   
+                    if( last_of_all==""){
+                        echo "first tag" 
+                        sh "git tag"
+                        withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
+                        sh "git tag $TAG"
+                        sh "git push origin $TAG"
                         }
-                        else if(tag_befor ==""){
-                           echo "first tag" 
-                        //    work
-                           sh "git tag"
-                           withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
-                            sh "git tag $TAG"
-                            sh "git push origin $TAG"
-                            }
-                        }
+                        
                     }
-                    else if(last_of_all==first_of_commit) {
-                        echo "have before" 
-                        // #push tag
+                    else if(last_tag_has!=last_has) {
+                        echo "new tag on commit" 
+                        if()
                         dir('script'){
                             sh "./tag_check.sh $TAG"
                         }
@@ -137,6 +141,7 @@ environment{
                 sh "docker-compose down -v"
             }
         }
+        // GIT_COMMITTER_EMAIL
         success{
            echo "yes"
         }
