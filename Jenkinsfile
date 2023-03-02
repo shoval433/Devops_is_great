@@ -94,8 +94,21 @@ environment{
                 }     
                 
             }
-        }
 
+
+        }
+        stage("tagTEST"){
+            steps{
+                echo "========executing TESTTAG========"
+                script{
+                    sh 'git tag'
+                    echo '=========================================================='
+                    sh "git describe --tags"
+
+
+                }
+            }
+        }
 
         
     }
