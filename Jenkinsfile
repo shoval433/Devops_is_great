@@ -100,7 +100,7 @@ environment{
                         }
                     }
                     else{
-                        echo "Have Two Tag On Commit!"
+                        echo "Pipline No Tag That"
                     }
                         
                     
