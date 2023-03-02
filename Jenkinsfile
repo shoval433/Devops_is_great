@@ -25,7 +25,7 @@ environment{
             steps{
                 echo "========executing chekout========"
                 script{
-                    sh "docker-compose build "
+                    sh "docker-compose build --no-cache  "
                     sh "docker-compose up -d"
                 }
             }
@@ -38,7 +38,7 @@ environment{
                     app_ip=sh(returnStdout: true, 
                     script: 'docker inspect app_lab_app_1 | grep -w "IPAddress" | cut -d \'"\' -f 4 ').trim()
                     dir('tests'){
-                        sh "docker build -t test-img . "
+                        sh "docker build -t test-img . --no-cache  "
                         sh "docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app test-img"
                     }
                     TAGcommit=sh (script: "git show -s --format=%s",
