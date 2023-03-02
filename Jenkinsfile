@@ -176,6 +176,7 @@ environment{
         success{
             script{
                emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [developers()], subject: 'Congratulations!'
+            }
         }
         failure {
            script{
