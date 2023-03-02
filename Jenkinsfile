@@ -6,6 +6,7 @@ environment{
     def PORT="5000"
     def TAGcommit=""
     def TAG=""
+    def EMAIL=""
    }
     stages{
         stage("chekout"){
@@ -94,11 +95,21 @@ environment{
                             sh "./tag_check.sh $last_of_all"
                         }
                     }
-                        
+                    sh "git log --pretty=format:'%an <%ae> pushed to the repository' --max-count=1"
+                    sh "git log -1 --pretty=format:'%ae'"
                     
-                    
-                }     
-                
+                }    
+               
+            }
+            post{
+                success{
+                    echo "====++++only when successful++++===="
+                    echo "The tag is good"
+                }
+                failure{
+                    echo "====++++only when failed++++===="
+                    echo "Invalid tag Please notify "
+                }
             }
 
 
@@ -120,16 +131,18 @@ environment{
                     }
                         
                     }
-                    println System.getenv("GIT_COMMITTER_EMAIL")
-                    sh "echo env.GIT_COMMITTER_EMAIL"
+                    sh "git log --pretty=format:'%an <%ae> pushed to the repository' --max-count=1"
+                    sh "git log -1 --pretty=format:'%ae'"
                 }
             }
             post{
                 success{
                     echo "====++++only when successful++++===="
+                    echo "The tag is good"
                 }
                 failure{
                     echo "====++++only when failed++++===="
+                    echo ""
                 }
             }
         }
