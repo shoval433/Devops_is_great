@@ -114,7 +114,8 @@ environment{
                 failure{
                     echo "====++++only when failed++++===="
                     sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
-                    
+                    emailext  body: 'Dear '+NAME+', your tag is Invalid'+last_of_all,
+                    to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
                 }
             }
 
@@ -150,13 +151,13 @@ environment{
                 success{
                     echo "====++++only when successful++++===="
                     echo "The tag is good"
-                    emailext  body: 'Dear '+NAME+', your tag is Invalid'+last_of_all,
-                    to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
+                    
                 }
                 failure{
                     echo "====++++only when failed++++===="
                     sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
-                    
+                    emailext  body: 'Dear '+NAME+', your tag is Invalid'+last_of_all,
+                    to: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
                 }
             }
         }
