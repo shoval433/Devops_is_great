@@ -97,7 +97,7 @@ environment{
                         }
                     }
                     else{
-                        echo "Have To Tag On Commit!"
+                        echo "Have Two Tag On Commit!"
                     }
                         
                     
