@@ -74,7 +74,7 @@ environment{
                     last_has=sh (script: 'git rev-parse --short HEAD',
                     returnStdout: true).trim()
                     
-                    last_tag_has=sh (script: 'git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d " " -f2',
+                    last_tag_has=sh (script: "git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d ' ' -f2",
                     returnStdout: true).trim()
 
                     echo "${last_of_all}"
