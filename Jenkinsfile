@@ -95,7 +95,7 @@ environment{
                         }
                     }
                         
-                    echo ${GIT_COMMITTER_EMAIL}
+                    echo "${GIT_COMMITTER_EMAIL}"
                     
                 }     
                 
@@ -117,7 +117,7 @@ environment{
                     dir('script'){
                             sh "./tag_check.sh $last_of_all"
                     }
-                        echo ${GIT_COMMITTER_EMAIL}
+                        echo "${GIT_COMMITTER_EMAIL}"
                 }
             }
             post{
