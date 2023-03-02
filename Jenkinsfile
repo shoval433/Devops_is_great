@@ -85,7 +85,7 @@ environment{
                             }
                         }
                     }
-                    else if (){
+                    else {
                         echo "have before" 
                         // #push tag
                         dir('script'){
