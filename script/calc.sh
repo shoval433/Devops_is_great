@@ -1,5 +1,9 @@
 #!/bin/bash
-Version=$(git describe --tags | cut -d '-' -f1 )
+all_tag=$(git tag)
+Version=`echo $all_tag |rev| cut -d " " -f1 | rev`
+echo "!!!!!!!!!!!!!!!"
+echo ${Version}
+echo "!!!!!!!!!!!!!!!"
 if [ "${Version}" = "" ];then
 Version="1.0.1"
 else
