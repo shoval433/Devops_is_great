@@ -171,13 +171,13 @@ environment{
         // GIT_COMMITTER_EMAIL
         success{
             script{
-               emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: EMAIL, subject: NAME+' Congratulations!'
+               emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [EMAIL], subject: NAME+' Congratulations!'
             }
         }
         failure {
             script{
                emailext attachLog: true, body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
-                recipientProviders: EMAIL, subject: NAME+' YOU ARE BETTER THEN THAT !!!'
+                recipientProviders: [EMAIL], subject: NAME+' YOU ARE BETTER THEN THAT !!!'
             }
            
         }
