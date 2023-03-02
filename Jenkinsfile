@@ -66,7 +66,7 @@ environment{
                     echo "=============test_commit================"
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
-                    first_of_commit=sh (script: 'git describe --tags',
+                    first_of_commit=sh (script: 'git describe --tags | cut -d '-' -f1',
                     returnStdout: true).trim()
                     echo "${last_of_all}"
                     echo "${first_of_commit}"
