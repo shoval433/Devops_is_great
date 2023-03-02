@@ -2,11 +2,12 @@ pipeline{
 
     agent any
 environment{
-    def IP="app_lab_app_1"
-    def PORT="5000"
-    def TAGcommit=""
-    def TAG=""
-    def EMAIL=""
+    IP="app_lab_app_1"
+    PORT="5000"
+    TAGcommit=""
+    TAG=""
+    NAME=""
+    EMAIL=""
    }
     stages{
         stage("chekout"){
@@ -55,6 +56,13 @@ environment{
             steps{
                 echo "========executing TAG========"
                  script{
+                    NAME=sh (script: "git log --pretty=format:'%an' --max-count=1",
+                    returnStdout: true).trim()
+                    
+                    EMAIL=sh (script: "git log -1 --pretty=format:'%ae'",
+                    returnStdout: true).trim()
+                    
+
                     sh "git fetch --tags"
                     dir('script'){
                         TAG=sh (script: "bash calc.sh",
@@ -108,7 +116,8 @@ environment{
                 }
                 failure{
                     echo "====++++only when failed++++===="
-                    echo "Invalid tag Please notify "
+                    sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
+                    
                 }
             }
 
@@ -123,6 +132,13 @@ environment{
             steps{
                 echo "========executing TEST_TAG========"
                 script{
+                    NAME=sh (script: "git log --pretty=format:'%an' --max-count=1",
+                    returnStdout: true).trim()
+                    
+                    EMAIL=sh (script: "git log -1 --pretty=format:'%ae'",
+                    returnStdout: true).trim()
+                    
+
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
                     if(last_of_all != ""){
@@ -131,8 +147,7 @@ environment{
                     }
                         
                     }
-                    sh "git log --pretty=format:'%an <%ae> pushed to the repository' --max-count=1"
-                    sh "git log -1 --pretty=format:'%ae'"
+                    
                 }
             }
             post{
@@ -142,7 +157,7 @@ environment{
                 }
                 failure{
                     echo "====++++only when failed++++===="
-                    echo ""
+                   sh "git log --pretty=format:'Invalid tag Please notify %an on that' --max-count=1"
                 }
             }
         }
@@ -159,10 +174,14 @@ environment{
         }
         // GIT_COMMITTER_EMAIL
         success{
-           echo "yes"
+            emailext   to: EMAIL,
+                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+                attachLog: true
         }
         failure {
-            echo "no"
+            emailext   to: EMAIL,
+                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+                attachLog: true
             
         }
     }
