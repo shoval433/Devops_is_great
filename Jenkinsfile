@@ -60,16 +60,9 @@ environment{
                         returnStdout: true).trim()
                     }
                     echo "${TAG}"
-                    // #on tag commit
                     echo "=============test_commit================"
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
-                    
-                    first_of_commit=sh (script: 'git describe --tags | cut -d "-" -f1',
-                    returnStdout: true).trim()
-
-                    // git rev-parse --short HEAD
-                    // git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d " " -f2
 
                     last_has=sh (script: 'git rev-parse --short HEAD',
                     returnStdout: true).trim()
@@ -77,17 +70,13 @@ environment{
                     last_tag_has=sh (script: "git tag -l --format='%(refname:short) %(objectname:short)' | tail -n 1 | cut -d ' ' -f2",
                     returnStdout: true).trim()
 
-                    echo "${last_of_all}"
-                    echo "${first_of_commit}"
-                   
-                    if( last_of_all==""){
+                    if(last_of_all==""){
                         echo "first tag" 
                         sh "git tag"
                         withCredentials([gitUsernamePassword(credentialsId: 'my_git', gitToolName: 'Default')]){
                         sh "git tag $TAG"
                         sh "git push origin $TAG"
-                        }
-                        
+                        } 
                     }
                     else if(last_tag_has!=last_has) {
                         echo "new tag on commit" 
@@ -101,9 +90,12 @@ environment{
                     }
                     else{
                         echo "Pipline No Tag That"
+                        dir('script'){
+                            sh "./tag_check.sh $last_of_all"
+                        }
                     }
                         
-                    
+                    echo ${GIT_COMMITTER_EMAIL}
                     
                 }     
                 
@@ -112,20 +104,28 @@ environment{
 
         }
         stage("tagTEST"){
+             when {
+                expression{
+                    return !(TAGcommit.contains("#tag"))
+                }
+            }
             steps{
-                echo "========executing TESTTAG========"
+                echo "========executing TEST_TAG========"
                 script{
-                    sh 'git tag'
-                    echo '=========================================================='
-                    sh "git describe --tags"
-                    echo "=============test_commit================"
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
-                    first_of_commit=sh (script: 'git describe --tags',
-                    returnStdout: true).trim()
-                    echo "${last_of_all}"
-                    echo "${first_of_commit}"
-
+                    dir('script'){
+                            sh "./tag_check.sh $last_of_all"
+                    }
+                        echo ${GIT_COMMITTER_EMAIL}
+                }
+            }
+            post{
+                success{
+                    echo "====++++only when successful++++===="
+                }
+                failure{
+                    echo "====++++only when failed++++===="
                 }
             }
         }
