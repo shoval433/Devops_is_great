@@ -7,7 +7,6 @@ environment{
     TAGcommit=""
     TAG=""
     NAME=""
-    EMAIL=""
    }
     stages{
         stage("chekout"){
@@ -59,9 +58,6 @@ environment{
                     NAME=sh (script: "git log --pretty=format:'%an' --max-count=1",
                     returnStdout: true).trim()
                     
-                    EMAIL=sh (script: "git log -1 --pretty=format:'%ae'",
-                    returnStdout: true).trim()
-                    
 
                     sh "git fetch --tags"
                     dir('script'){
@@ -103,8 +99,6 @@ environment{
                             sh "./tag_check.sh $last_of_all"
                         }
                     }
-                    sh "git log --pretty=format:'%an <%ae> pushed to the repository' --max-count=1"
-                    sh "git log -1 --pretty=format:'%ae'"
                     
                 }    
                
@@ -134,11 +128,7 @@ environment{
                 script{
                     NAME=sh (script: "git log --pretty=format:'%an' --max-count=1",
                     returnStdout: true).trim()
-                    
-                    EMAIL=sh (script: "git log -1 --pretty=format:'%ae'",
-                    returnStdout: true).trim()
-                    
-
+                
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
                     if(last_of_all != ""){
@@ -175,10 +165,14 @@ environment{
         // GIT_COMMITTER_EMAIL
         success{
             script{
-               emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [developers()], subject: 'Congratulations!'
+               emailext attachLog: true, body: 'Well, this time you didnt mess up', recipientProviders: [developers()], subject: NAME+' Congratulations!'
             }
         }
         failure {
+            script{
+               emailext attachLog: true, body: 'Dear '+NAME+', you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',
+                recipientProviders: [developers()], subject: NAME+' YOU ARE BETTER THEN THAT !!!'
+            }
            script{
                 emailext to: "${EMAIL}",
                     subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear ${env.NAME}, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
