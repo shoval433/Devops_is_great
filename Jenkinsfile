@@ -95,7 +95,7 @@ environment{
                         }
                     }
                         
-                    echo "${GIT_COMMITTER_EMAIL}"
+                    
                     
                 }     
                 
@@ -114,10 +114,13 @@ environment{
                 script{
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
+                    if(last_of_all != ""){
                     dir('script'){
                             sh "./tag_check.sh $last_of_all"
                     }
-                        echo "${GIT_COMMITTER_EMAIL}"
+                        
+                    }
+                   echo GIT_COMMITTER_EMAIL %GIT_COMMITTER_EMAIL%
                 }
             }
             post{
