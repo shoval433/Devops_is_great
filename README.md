@@ -64,7 +64,7 @@ Go to the project directory
 ```bash
   docker build -t test-img .
 ```
-You must transfer the IP and PORT you are running the application on (default is port 80)
+You must transfer the IP and PORT you are running the application on (default is port 80 default is ip localhost)
 ```bash
   docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app test-img
 ```
