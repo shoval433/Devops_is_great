@@ -6,10 +6,5 @@ services:
       - "80:5000"
     networks:
       - for_app
-#     volumes:
-#       - logs_app:/app/log/app.logs
-
-# volumes:
-#   logs_app:
 networks:
   for_app:

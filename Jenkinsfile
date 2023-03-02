@@ -1,6 +1,7 @@
 pipeline{
-
+    
     agent any
+
 environment{
     IP="app_lab_app_1"
     PORT="5000"
@@ -9,6 +10,7 @@ environment{
     NAME=""
     EMAIL=""
    }
+
     stages{
         stage("chekout"){
             steps{
@@ -33,10 +35,6 @@ environment{
                     app_ip=sh(returnStdout: true, 
                     script: 'docker inspect app_lab_app_1 | grep -w "IPAddress" | cut -d \'"\' -f 4 ').trim()
                     dir('tests'){
-                        sh "docker ps"
-                        echo "------------------------------------------"
-                        sh "docker network ls"
-                        echo "------------------------------------------"
                         sh "docker build -t test-img . "
                         sh "docker run --name test -e ip=${IP} -e port=${PORT} --network app_lab_for_app test-img"
                     }
@@ -46,7 +44,7 @@ environment{
 
             }
         }
-
+        
         stage("Tag"){
             when {
                 expression{
@@ -67,8 +65,8 @@ environment{
                         TAG=sh (script: "bash calc.sh",
                         returnStdout: true).trim()
                     }
-                    echo "${TAG}"
-                    echo "=============test_commit================"
+                    
+                    echo "=============test_has_commit================"
                     last_of_all=sh (script: 'echo $(git tag) |rev| cut -d " " -f1 | rev',
                     returnStdout: true).trim()
 
